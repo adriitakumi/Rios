@@ -23,8 +23,14 @@
     <!--  DataTables   -->
     <link href="https://nightly.datatables.net/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
 
+    <!--  Bootstrap Datepicker -->
+    <link href="<?php echo base_url(); ?>assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+
     <!--  iCheck   -->
     <link href="<?php echo base_url(); ?>dist/icheck-1.x/skins/square/blue.css" rel="stylesheet"/>
+
+    <!--  Select2   -->
+    <link href="<?php echo base_url(); ?>dist/select2-4.0.6-rc.1/dist/css/select2.min.css" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -170,7 +176,7 @@
                         <div class="col-md-6">
                             <div class="form-group is-empty">
                                 <label class="control-label">Date Received</label>
-                                <input type="text" name="date_paid" class="form-control pull-right datepicker" required>
+                                <input type="text" name="date_received" class="form-control pull-right datepicker" required>
                                 <span class="material-input" required></span>
                             </div>
                         </div>
@@ -195,15 +201,28 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Genre</label>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label>
-                                        <input type="checkbox">
-                                        Horror
-                                        </label>
-                                    </div>
-                                    
-                                </div>
+                                <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 100%">
+                                  <option value="Romance">Romance</option>
+                                  <option value="Mystery">Mystery</option>
+                                  <option value="Sci-fi">Sci-Fi</option>
+                                  <option value="Horror">Horror</option>
+                                  <option value="Encyclopedia">Encyclopedia</option>
+                                  <option value="Directories">Directories</option>
+                                  <option value="Adventure">Adventure</option>
+                                  <option value="Almanac">Almanacs</option>
+                                  <option value="Map">Maps</option>
+                                  <option value="Picture Books">Picture Books</option>
+                                  <option value="Folklore">Folklore</option>
+                                  <option value="Short Stories">Short Stories</option>
+                                  <option value="Magazines">Magazines</option>
+                                  <option value="Newspapers">Newspapers</option>
+                                  <option value="Journals">Journals</option>
+                                  <option value="Spirituality">Spirituality</option>
+                                  <option value="Art">Art</option>
+                                  <option value="Cooking">Cooking</option>
+                                  <option value="Comics">Comics</option>
+                                  <option value="History">History</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -236,8 +255,11 @@
     <!-- iCheck  -->
     <script src="<?php echo base_url(); ?>dist/icheck-1.x/icheck.min.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Select2  -->
+    <script src="<?php echo base_url(); ?>dist/select2-4.0.6-rc.1/dist/js/select2.min.js"></script>    
+
+    <!-- bootstrap datepicker -->
+    <script src="<?php echo base_url(); ?>assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="<?php echo base_url(); ?>assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
@@ -254,6 +276,13 @@
             // $('input').iCheck({
             //     checkboxClass: 'icheckbox_square-red'
             //   });
+
+            $('.js-example-basic-multiple').select2();
+
+            //Date picker
+            $('.datepicker').datepicker();
+
+
         } );
 
     </script>
