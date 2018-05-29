@@ -23,14 +23,12 @@
     <!--  DataTables   -->
     <link href="https://nightly.datatables.net/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
 
-    <!--  Bootstrap Datepicker -->
-    <link href="<?php echo base_url(); ?>assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-
-    <!--  iCheck   -->
-    <link href="<?php echo base_url(); ?>dist/icheck-1.x/skins/square/blue.css" rel="stylesheet"/>
-
     <!--  Select2   -->
     <link href="<?php echo base_url(); ?>dist/select2-4.0.6-rc.1/dist/css/select2.min.css" rel="stylesheet"/>
+
+    <!--  Customized CSS  -->
+    <link href="<?php echo base_url(); ?>assets/css/checkbox.css" rel="stylesheet"/>
+    <link href="<?php echo base_url(); ?>assets/css/customize.css" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -152,91 +150,193 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header bg-primary">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group is-empty">
-                        <label class="control-label">Book Title</label>
-                        <input id="pay-invoice" type="text" name="invoice_number" class="form-control">
-                        <span class="material-input" required></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group is-empty">
-                                <label class="control-label">Author</label>
-                                <input type="text" class="form-control" name="amount_paid" value="">
-                                <span class="material-input"></span>
+        <form method="post" action="<?php echo site_url('books/add');?>">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Book</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Book Title</label>
+                            <input id="pay-invoice" type="text" name="title" class="form-control">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group is-empty">
+                                    <label class="control-label">Author</label>
+                                    <input type="text" class="form-control" name="author" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group is-empty">
+                                    <label class="control-label">No. of Copies</label>
+                                    <input type="text" class="form-control" name="copies" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group is-empty">
+                                    <label class="control-label">Library Section</label>
+                                    <select class="form-control" name="library_section" style="width: 100%;">
+                                        <option value="" selected disabled>Please select</option>
+                                        <option value="General Reference">General Reference</option>
+                                        <option value="Children's Section">Children's Section</option>
+                                        <option value="Fiction">Fiction</option>
+                                        <option value="Periodical Section">Periodical Section</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group is-empty">
-                                <label class="control-label">Date Received</label>
-                                <input type="text" name="date_received" class="form-control pull-right datepicker" required>
-                                <span class="material-input" required></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group is-empty">
-                                <label class="control-label">No. of Copies</label>
-                                <input type="text" class="form-control" name="amount_paid" value="">
-                                <span class="material-input"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group is-empty">
-                                <label class="control-label">Library Section</label>
-                                <input type="text" name="date_paid" class="form-control pull-right datepicker" required>
-                                <span class="material-input" required></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Genre</label>
-                                <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 100%">
-                                  <option value="Romance">Romance</option>
-                                  <option value="Mystery">Mystery</option>
-                                  <option value="Sci-fi">Sci-Fi</option>
-                                  <option value="Horror">Horror</option>
-                                  <option value="Encyclopedia">Encyclopedia</option>
-                                  <option value="Directories">Directories</option>
-                                  <option value="Adventure">Adventure</option>
-                                  <option value="Almanac">Almanacs</option>
-                                  <option value="Map">Maps</option>
-                                  <option value="Picture Books">Picture Books</option>
-                                  <option value="Folklore">Folklore</option>
-                                  <option value="Short Stories">Short Stories</option>
-                                  <option value="Magazines">Magazines</option>
-                                  <option value="Newspapers">Newspapers</option>
-                                  <option value="Journals">Journals</option>
-                                  <option value="Spirituality">Spirituality</option>
-                                  <option value="Art">Art</option>
-                                  <option value="Cooking">Cooking</option>
-                                  <option value="Comics">Comics</option>
-                                  <option value="History">History</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Genre</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Romance
+                                            <input type="checkbox" name="genre[]" value="Romance">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Mystery
+                                            <input type="checkbox" name="genre[]" value="Mystery">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Sci-fi
+                                            <input type="checkbox" name="genre[]" value="Sci-fi">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Horror
+                                            <input type="checkbox" name="genre[]" value="horror">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Encyclopedia
+                                            <input type="checkbox" name="genre[]" value="Encyclopedia">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Directories
+                                            <input type="checkbox" name="genre[]" value="Directories">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Adventure
+                                            <input type="checkbox" name="genre[]" value="Adventure">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Almanacs
+                                            <input type="checkbox" name="genre[]" value="Almanacs">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Maps
+                                            <input type="checkbox" name="genre[]" value="Maps">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Pictures
+                                            <input type="checkbox" name="genre[]" value="Pictures">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Folklore
+                                            <input type="checkbox" name="genre[]" value="Folklore">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Short Stories
+                                            <input type="checkbox" name="genre[]" value="Short Stories">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Magazines
+                                            <input type="checkbox" name="genre[]" value="Magazines">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Newspapers
+                                            <input type="checkbox" name="genre[]" value="Newspapers">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Journals
+                                            <input type="checkbox" name="genre[]" value="Journals">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Spirituality
+                                            <input type="checkbox" name="genre[]" value="Spirituality">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Art
+                                            <input type="checkbox" name="genre[]" value="Art">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Cooking
+                                            <input type="checkbox" name="genre[]" value="Cooking">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">Comics
+                                            <input type="checkbox" name="genre[]" value="Comics">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="containerCheckbox">History
+                                            <input type="checkbox" name="genre[]" value="History">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Close</button>
-      </div>
     </div>
 
   </div>
 </div>
+
 
     <!--   Core JS Files   -->
     <script src="<?php echo base_url(); ?>assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
@@ -252,14 +352,8 @@
     <script src="<?php echo base_url(); ?>dist/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>dist/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-    <!-- iCheck  -->
-    <script src="<?php echo base_url(); ?>dist/icheck-1.x/icheck.min.js"></script>
-
     <!-- Select2  -->
     <script src="<?php echo base_url(); ?>dist/select2-4.0.6-rc.1/dist/js/select2.min.js"></script>    
-
-    <!-- bootstrap datepicker -->
-    <script src="<?php echo base_url(); ?>assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="<?php echo base_url(); ?>assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
@@ -272,17 +366,6 @@
 
         $(document).ready(function() {
             $('#booksTable').DataTable();
-
-            // $('input').iCheck({
-            //     checkboxClass: 'icheckbox_square-red'
-            //   });
-
-            $('.js-example-basic-multiple').select2();
-
-            //Date picker
-            $('.datepicker').datepicker();
-
-
         } );
 
     </script>
