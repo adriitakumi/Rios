@@ -26,6 +26,12 @@
                     <p>Books</p>
                 </a>
             </li>
+            <li class="<?php if(isset($active) && $active == 'borrowed_books') echo 'active'; ?>">
+                <a href="<?php echo site_url('borrowed_books/') ?>">
+                    <i class="pe-7s-id"></i>
+                    <p>Borrowed Books</p>
+                </a>
+            </li>
             <li class="<?php if(isset($active) && $active == 'user') echo 'active'; ?>">
                 <a href="<?php echo site_url('Welcome/userprofile') ?>">
                     <i class="pe-7s-user"></i>
@@ -48,12 +54,6 @@
                 <a href="<?php echo site_url('Welcome/icons') ?>">
                     <i class="pe-7s-science"></i>
                     <p>Icons</p>
-                </a>
-            </li>
-            <li class="<?php if(isset($active) && $active == 'maps') echo 'active'; ?>">
-                <a href="<?php echo site_url('Welcome/maps') ?>">
-                    <i class="pe-7s-map-marker"></i>
-                    <p>Maps</p>
                 </a>
             </li>
             <li class="<?php if(isset($active) && $active == 'notifs') echo 'active'; ?>">
