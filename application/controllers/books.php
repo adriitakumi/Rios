@@ -91,7 +91,7 @@ class books extends CI_Controller {
 
 			$action = "
                     <center><button data-toggle='modal' id='view-btn' data-target='#modal-edit' class='btn btn-default btn-xs view-btn'><span class='fa fa-fw fa-search text-info'></span></button>                  
-                    <button data-toggle='modal' data-target='#modal-delete' class='btn btn-default btn-xs delete-btn'><span class='fa fa-fw fa-remove text-danger'></span></button></center>                
+                    <button data-toggle='modal' id='delete-btn' data-target='#modal-delete' class='btn btn-default btn-xs delete-btn'><span class='fa fa-fw fa-remove text-danger'></span></button></center>                
                   ";
 
 			
@@ -129,6 +129,17 @@ class books extends CI_Controller {
 		unset($data['table']);
 
 		$result = $this->books_model->update($table, $data);
+		echo json_encode($result);
+	}
+
+	public function ajaxDeleteRow()
+	{
+		$table = $this->input->post('table');	
+		$data = $this->input->post();
+
+		unset($data['table']);
+
+		$result = $this->global_model->deleteRow($table, $data);
 		echo json_encode($result);
 	}
 }

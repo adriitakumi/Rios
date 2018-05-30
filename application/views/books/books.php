@@ -508,23 +508,20 @@
 <!-- /.modal-->
 
 <div class="modal fade in" id="modal-delete">
-    <div class="modal-dialog" style="max-width: 320px">
-        <div id="box-delete" class="box box-danger">
-            <div class="box-header with-border" style="cursor: move; margin: 0px;">
-                <i id="box-delete-icon" class="fa fa-warning text-danger"></i>
-
-                <h3 class="box-title text-danger">Warning</h3>
-        
-                <!-- tools box -->
-                <div class="box-tools pull-right">
-                    <button id="box-delete-btn" type="button" class="btn btn-box-tool" data-dismiss="modal"><i class="fa fa-times text-danger"></i></button>
-                </div>
-                <!-- /. tools -->
+    <div class="modal-dialog" style="width: 320px">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-danger">
+                <button type="button" class="close btn btn-box-tool" data-dismiss="modal"><i class="fa fa-times text-danger"></i></button>
+                <i class="fa fa-warning"><h4 class="modal-title" style="display: inline; margin: 10px 10px; ">Warning!</h4></i>
+                
             </div>
-            <div class="box-body box-profile flat" style="margin-top: -10px">
-                <h4 id="text-status">Are you sure you want to delete record?</h4>
+            <div class="modal-body">
+                <h4 style="margin-top: 2px;">Are you sure you want to delete this book?</h4>
+            </div>
+            <div class="modal-footer bg-danger">
                 <button id="delete-confirm" data-dismiss="modal" type="button" style="width: 75px" class="btn btn-block btn-danger btn-sm pull-right">Confirm</button>
             </div>
+            <!-- /.modal-footer -->
         </div>
     </div>
 </div>
@@ -560,9 +557,11 @@
         var getRecordsUrl = '<?php echo base_url("books/populateTable"); ?>';
         var getRowUrl = '<?php echo base_url('books/ajaxGetRow'); ?>';
         var updateUrl = '<?php echo base_url('books/ajaxUpdate'); ?>';
+        var deleteRowUrl = '<?php echo base_url('books/ajaxDeleteRow'); ?>';
 
         var new_book_title, new_author, new_library_section, new_date_added, new_copies, new_genres;
         var book_id, book_title, author, library_section, date_added, copies, genre;
+
 
 
         $(function () {
@@ -628,6 +627,31 @@
                 });   
             });
         }
+
+
+        $("#booksTable").on("click", "tr td .delete-btn", function(){
+            
+            book_id = $(this).parents('tr').find('td:first').html();
+
+            $('#delete-confirm').click(function(){
+
+                $.ajax({
+                    url: deleteRowUrl,
+                    type: 'post',
+                    dataType: 'json', 
+                    data: {
+                    'book_id': book_id,
+                    'table': 'books' }, 
+                    success: function(result){
+                    //console.log(result);
+
+                    populateTable();
+                    }
+                }); 
+            })
+        });
+        
+
 
 
         function updateRow(){
