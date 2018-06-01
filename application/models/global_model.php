@@ -30,5 +30,20 @@ class global_model extends CI_Model{
 		return $query->num_rows();
 	}
 
+	public function getRow($table, $set, $value)
+	{
+		$this->db->where($set, $value);
+		$query = $this->db->get($table)->row();
+		return $query;
+	}
+
+	public function deleteRow($table, $where)
+	{	
+		$this->db->where($where);
+		$query = $this->db->delete($table);
+		return $query;
+	}
+
+
 }
 ?>

@@ -39,6 +39,11 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="<?php echo base_url(); ?>assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>dist/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>dist/Ionicons/css/ionicons.min.css">
+      
 </head>
 
 
@@ -52,10 +57,18 @@
 
         <div class="content">
             <div class="container-fluid panel-primary">
+                <div class="text-warning">
+                    <?php 
+                        // if($this->session->flashdata('error')){
+                            echo $this->session->flashdata('error');
+                        // }
+                    ?>
+                </div>
+                <!-- /.text-warning -->
                 <div class="panel-heading">
                     <h3>Books</h3>
                     <p>List of book information</p>
-                    <p id="add-link" class="category pull-right" style="margin-top: -60px;"><i class="pe-7s-plus" data-toggle="modal" data-target="#modal-add" style="font-size: 40px; cursor: pointer;"></i></p>
+                    <p id="add-link" class="category pull-right" style="margin: -60px 20px 0 20px;"><i class="fa fa-plus-circle" data-toggle="modal" data-target="#modal-add" style="font-size: 40px; cursor: pointer;"></i></p>
                 </div>
                 <div class="container-fluid panel" style="padding: 10px;">
                     <table class="table table-bordered table-hover" id="booksTable">
@@ -70,66 +83,7 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Dakota Rice</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Minerva Hooper</td>
-                                <td>$23,789</td>
-                                <td>Curaçao</td>
-                                <td>Sinaai-Waas</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Sage Rodriguez</td>
-                                <td>$56,142</td>
-                                <td>Netherlands</td>
-                                <td>Baileux</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Philip Chaney</td>
-                                <td>$38,735</td>
-                                <td>Korea, South</td>
-                                <td>Overland Park</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Doris Greene</td>
-                                <td>$63,542</td>
-                                <td>Malawi</td>
-                                <td>Feldkirchen in Kärnten</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Mason Porter</td>
-                                <td>$78,615</td>
-                                <td>Chile</td>
-                                <td>Gloucester</td>
-                                <td>$36,738</td>
-                                <td>Niger</td>
-                                <td>Oud-Turnhout</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -160,31 +114,118 @@
                     <div class="col-md-12">
                         <div class="form-group is-empty">
                             <label class="control-label">Book Title</label>
-                            <input id="pay-invoice" type="text" name="title" class="form-control">
+                            <input id="title-input" type="text" name="book_title" value="<?php echo set_value('book_title'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Author</label>
+                            <input id="author-input" type="text" class="form-control" name="author" value="<?php echo set_value('author'); ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">No. of Copies</label>
+                            <input id="copies-input" type="text" class="form-control" name="copies" value="<?php echo set_value('copies'); ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Library Section</label>
+                            <select class="form-control" id="section-input" name="library_section" style="width: 100%;" value="<?php echo set_select('library_section'); ?>" required>
+                                <option value="" selected disabled>Please select</option>
+                                <option value="General Reference" <?php echo  set_select('library_section', 'General Reference'); ?> >General Reference</option>
+                                <option value="Children's Section" <?php echo  set_select('library_section', 'Children\'s section'); ?> >Children's Section</option>
+                                <option value="Fiction" <?php echo  set_select('library_section', 'Fiction'); ?> >Fiction</option>
+                                <option value="Periodical Section" <?php echo  set_select('library_section', 'Periodical Section'); ?> >Periodical Section</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" id="genreFormGroup">
+                            <label class="control-label">Genre</label>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <?php foreach ($genres as $genre): ?>
+                            <div class="col-md-3">
+                                <label class="containerCheckbox"><?php echo $genre->genre; ?>
+                                    <input type="checkbox" name="genre[]" value="<?php echo $genre->id; ?>" <?php echo set_checkbox('genre', $genre->id); ?> >
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <!-- /.col-md-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.modal-body -->
+            <div class="modal-footer">
+                <button type="submit" id="add-btn" class="btn btn-simple btn-fill btn-primary">Add</button>
+                <button data-dismiss="modal" class="btn btn-simple btn-fill btn-danger pull-left">Cancel</button>
+            </div>
+            <!-- /.modal-footer -->
+        </form>
+    </div/>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal-->
+
+<!-- Modal -->
+<div id="modal-edit" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Book Info</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Book Title</label>
+                            <input id="book_title" type="text" class="form-control" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group is-empty">
                                     <label class="control-label">Author</label>
-                                    <input type="text" class="form-control" name="author" value="">
+                                    <input id="author" type="text" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group is-empty">
                                     <label class="control-label">No. of Copies</label>
-                                    <input type="text" class="form-control" name="copies" value="">
+                                    <input id="copies" type="text" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group is-empty">
                                     <label class="control-label">Library Section</label>
-                                    <select class="form-control" name="library_section" style="width: 100%;">
+                                    <select class="form-control" id="library_section" style="width: 100%;" required>
                                         <option value="" selected disabled>Please select</option>
                                         <option value="General Reference">General Reference</option>
                                         <option value="Children's Section">Children's Section</option>
                                         <option value="Fiction">Fiction</option>
                                         <option value="Periodical Section">Periodical Section</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group is-empty">
+                                    <label class="control-label">Date Added</label>
+                                    <input id="date_added" type="text" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -194,148 +235,56 @@
                                     <label class="control-label">Genre</label>
                                 </div>
                                 <div class="row">
+                                    <?php foreach ($genres as $genre): ?>
                                     <div class="col-md-3">
-                                        <label class="containerCheckbox">Romance
-                                            <input type="checkbox" name="genre[]" value="Romance">
+                                        <label class="containerCheckbox"><?php echo $genre->genre; ?>
+                                            <input type="checkbox" name="genre[]" class="edit" value="<?php echo $genre->id; ?>">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Mystery
-                                            <input type="checkbox" name="genre[]" value="Mystery">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Sci-fi
-                                            <input type="checkbox" name="genre[]" value="Sci-fi">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Horror
-                                            <input type="checkbox" name="genre[]" value="horror">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Encyclopedia
-                                            <input type="checkbox" name="genre[]" value="Encyclopedia">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Directories
-                                            <input type="checkbox" name="genre[]" value="Directories">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Adventure
-                                            <input type="checkbox" name="genre[]" value="Adventure">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Almanacs
-                                            <input type="checkbox" name="genre[]" value="Almanacs">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Maps
-                                            <input type="checkbox" name="genre[]" value="Maps">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Pictures
-                                            <input type="checkbox" name="genre[]" value="Pictures">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Folklore
-                                            <input type="checkbox" name="genre[]" value="Folklore">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Short Stories
-                                            <input type="checkbox" name="genre[]" value="Short Stories">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Magazines
-                                            <input type="checkbox" name="genre[]" value="Magazines">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Newspapers
-                                            <input type="checkbox" name="genre[]" value="Newspapers">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Journals
-                                            <input type="checkbox" name="genre[]" value="Journals">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Spirituality
-                                            <input type="checkbox" name="genre[]" value="Spirituality">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Art
-                                            <input type="checkbox" name="genre[]" value="Art">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Cooking
-                                            <input type="checkbox" name="genre[]" value="Cooking">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">Comics
-                                            <input type="checkbox" name="genre[]" value="Comics">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="containerCheckbox">History
-                                            <input type="checkbox" name="genre[]" value="History">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
+                            <!-- /.col-md-12 -->
                         </div>
+                        <!-- /.row -->
                     </div>
+                    <!-- /.col-md-12 -->
                 </div>
+                <!-- /.row -->
             </div>
+            <!-- /.modal-body -->
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button id="update-btn" class="btn btn-simple btn-fill btn-primary">Update</button>
+                <button data-dismiss="modal" class="btn btn-simple btn-fill btn-danger pull-left">Cancel</button>
             </div>
-        </form>
-    </div>
-
+            <!-- /.modal-footer -->
+    </div/>
+    <!-- /.modal-content -->
   </div>
+  <!-- /.modal-dialog -->
 </div>
+<!-- /.modal-->
+
+<div class="modal fade in" id="modal-delete">
+    <div class="modal-dialog" style="width: 320px">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-danger">
+                <button type="button" class="close btn btn-box-tool" data-dismiss="modal"><i class="fa fa-times text-danger"></i></button>
+                <i class="fa fa-warning"><h4 class="modal-title" style="display: inline; margin: 10px 10px; ">Warning!</h4></i>
+                
+            </div>
+            <div class="modal-body">
+                <h4 style="margin-top: 2px;">Are you sure you want to delete this book?</h4>
+            </div>
+            <div class="modal-footer bg-danger">
+                <button id="delete-confirm" data-dismiss="modal" type="button" style="width: 75px" class="btn btn-block btn-danger btn-sm pull-right">Confirm</button>
+            </div>
+            <!-- /.modal-footer -->
+        </div>
+    </div>
+</div>
+
 
 
     <!--   Core JS Files   -->
@@ -364,9 +313,157 @@
     <!-- Page Script -->
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            $('#booksTable').DataTable();
-        } );
+        var getRecordsUrl = '<?php echo base_url("books/populateTable"); ?>';
+        var getRowUrl = '<?php echo base_url('books/ajaxGetRow'); ?>';
+        var updateUrl = '<?php echo base_url('books/ajaxUpdate'); ?>';
+        var deleteRowUrl = '<?php echo base_url('books/ajaxDeleteRow'); ?>';
+
+        var new_book_title, new_author, new_library_section, new_date_added, new_copies, new_genres;
+        var book_id, book_title, author, library_section, date_added, copies, genre;
+
+
+
+        $(function () {
+           populateTable();
+        })
+                         
+        
+        function populateTable(){
+
+            $('#booksTable').DataTable().destroy();
+              
+            $('#booksTable').DataTable({
+                "columns": [
+                { "width": "5%" },
+                { "width": "20%" },
+                { "width": "15%" },
+                { "width": "20%" },
+                { "width": "15%" },
+                { "width": "5%" },
+                { "width": "10%" },
+                { "width": "10%" }
+                ],
+                "ajax": getRecordsUrl
+            });
+
+            $("#booksTable").on("click", "tr td .view-btn", function(){
+            
+                book_id = $(this).parents('tr').find('td:first').html();
+
+                $.ajax({
+                    url: getRowUrl,
+                    type: 'post',
+                    dataType: 'json', 
+                    data: {'table' : 'books', 'set': 'book_id', 'value': book_id}, 
+                    success: function(result){
+                        // console.log(result);
+
+                        $( "input[type='checkbox']" ).prop('checked', false);
+
+                        book_id = result.book_id;
+                        book_title = result.book_title;
+                        author = result.author;
+                        copies = result.copies;
+                        date_added = result.date_added;
+                        library_section = result.library_section;
+                        genre = result.genre;
+
+                        $( "#book_title" ).val(book_title);
+                        $( "#author" ).val(author);
+                        $( "#copies" ).val(copies);
+                        $( "#library_section" ).val(library_section);
+                        $( "#date_added" ).val(date_added);
+
+                        var genres = genre.split(",");
+                        //console.log(genres);
+
+                        $.each(genres, function(index, value) {
+                          //console.log(value);
+                          $( "input[value='"+value+"']" ).prop('checked', true);
+                        });
+                        
+                    }
+                });   
+            });
+        }
+
+
+        $("#booksTable").on("click", "tr td .delete-btn", function(){
+            
+            book_id = $(this).parents('tr').find('td:first').html();
+            alert(book_id);
+            $('#delete-confirm').click(function(){
+
+                $.ajax({
+                    url: deleteRowUrl,
+                    type: 'post',
+                    dataType: 'json', 
+                    data: {
+                    'book_id': book_id,
+                    'table': 'books' }, 
+                    success: function(result){
+                    //console.log(result);
+
+                    populateTable();
+                    }
+                }); 
+            })
+        });
+        
+
+
+
+        function updateRow(){
+            $.ajax({
+                url: updateUrl,
+                type: 'post',
+                dataType: 'json', 
+                data: {
+                    'table' : 'books',
+                    'book_title' : new_book_title, 
+                    'author': new_author, 
+                    'copies': new_copies, 
+                    'date_added': new_date_added, 
+                    'library_section': new_library_section,
+                    'genre': new_genres,
+                    'set': book_id }, 
+
+                    success: function(result){
+                        $('#modal-edit').modal('hide');
+                        populateTable();
+                        
+                    }
+            }); 
+        }
+
+
+        $('#update-btn').click(function(){
+            new_book_title = $( "#book_title" ).val();
+            new_author = $( "#author" ).val();
+            new_copies = $( "#copies" ).val();
+            new_date_added = $('#date_added').val();
+            new_library_section = $('#library_section').val();
+
+            var strgen;
+            $('input[class="edit"]:checked').each(function() {
+                //console.log(this.value);
+                if (strgen == null)
+                {
+                    strgen = this.value;
+                }else 
+                {
+                    strgen = strgen+','+this.value;
+                }
+            });
+
+            new_genres = strgen;
+            //console.log(new_genres);
+            updateRow();
+        })
+
+        $('#add-link').click(function(){
+            $( "input[type='checkbox']" ).prop('checked', false);
+        })
 
     </script>
 
