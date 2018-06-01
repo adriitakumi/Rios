@@ -10,6 +10,7 @@ class books extends CI_Controller {
 		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
+		$data['genres'] = $this->global_model->getRecords('genres');
 		$this->load->view('books/books', $data);
 	}
 
@@ -37,12 +38,15 @@ class books extends CI_Controller {
 
 				$genres = $this->input->post('genre');
 
-				$genredb = null;
+				$genredb = null;				
 				foreach ($genres as $genre) {
-					if ($genredb == null){
+
+					if ($genredb == null)
+					{
 						$genredb = $genre;
-					}else{
-						$genredb = $genredb.', '.$genre;
+					}else
+					{
+						$genredb = $genredb.','.$genre;
 					}
 				}
 
@@ -88,6 +92,24 @@ class books extends CI_Controller {
 			$copies = $books->copies;
 			$date_added = $books->date_added;
 
+			$genre = explode(",", $genres);
+
+			$tableGenre = NULL;
+			foreach ($genre as $genre) {
+				$genreRecords = $this->global_model->getRow('genres', 'id', $genre);
+				//var_dump($genreRecords);
+
+				if ($tableGenre == NULL)
+				{
+					$tableGenre = $genreRecords->genre;
+				}else
+				{
+					$tableGenre = $tableGenre.', '.$genreRecords->genre;
+				}
+
+			}
+
+
 
 			$action = "
                     <center><button data-toggle='modal' id='view-btn' data-target='#modal-edit' class='btn btn-default btn-xs view-btn'><span class='fa fa-fw fa-search text-info'></span></button>                  
@@ -96,10 +118,10 @@ class books extends CI_Controller {
 
 			
 			$arr = array(
-		        $book_id,
+				$book_id,
 		        $title,
 		        $author,
-		        $genres,
+		        $tableGenre,
 		        $library_section,
 		        $copies,
 		        $date_added,
