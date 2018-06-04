@@ -14,6 +14,7 @@ class Login extends CI_Controller {
 	    	redirect('dashboard', 'refresh');
 	    }else{
 			$data = array();
+			$data['title'] = 'Login';
 			$this->load->view('login', $data);
 	    }
 	}

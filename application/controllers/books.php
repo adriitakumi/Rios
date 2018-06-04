@@ -7,6 +7,7 @@ class books extends CI_Controller {
 	{
 		$data = array();
 		$data['active'] = 'books';
+		$data['title'] = 'Books';
 		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
@@ -19,6 +20,7 @@ class books extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		$data = array();
 		$data['active'] = 'books';
+		$data['title'] = 'Books';
 		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);

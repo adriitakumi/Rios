@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>/assets/img/dark.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Light Bootstrap Dashboard by Creative Tim</title>
+	<title><?php echo $title; ?></title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -19,6 +19,9 @@
 
     <!--  DataTables   -->
     <link href="https://nightly.datatables.net/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+
+    <!-- Animation library for notifications   -->
+    <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet"/>
 
     <!--  Customized CSS  -->
     <link href="<?php echo base_url(); ?>assets/css/checkbox.css" rel="stylesheet"/>
@@ -51,15 +54,7 @@
 
         <div class="content">
             <div class="container-fluid panel-primary">
-                <div class="text-warning">
-                    <?php 
-                        // if($this->session->flashdata('error')){
-                            echo $this->session->flashdata('error');
-                            echo $member_id;
-                        // }
-                    ?>
-                </div>
-                <!-- /.text-warning -->
+                <a href="<?php echo base_url('circulation/'); ?>" class="btn btn-simple btn-fill btn-warning" style="margin-bottom: 20px;"><i class="fa fa-angle-left" style="margin-left: -12px;"></i>Back</a>
                 <div class="panel-heading">
                     <h3>Borowed Books</h3>
                     <p>List of MEMBER HERE borrowed books information</p>
@@ -164,6 +159,9 @@
     <script src="<?php echo base_url(); ?>dist/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>dist/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
+     <!--  Notifications Plugin    -->
+    <script src="<?php echo base_url(); ?>assets/js/bootstrap-notify.js"></script>
+
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="<?php echo base_url(); ?>assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
@@ -171,142 +169,14 @@
 	<script src="<?php echo base_url(); ?>assets/js/demo.js"></script>
 
     <!-- Page Script -->
-    <script type="text/javascript">
-
+    <script src="<?php echo base_url(); ?>assets/js/circulation/borrowed_books.js"></script>
+    <script>
         var member_id = '<?php echo $member_id; ?>'
         var getRecordsUrl = '<?php echo base_url("circulation/populateTable"); ?>';
         var getBooksUrl = '<?php echo base_url("circulation/getBooksTable"); ?>';
         var borrowBooksUrl = '<?php echo base_url("circulation/add"); ?>';
         var returnBookUrl = '<?php echo base_url("circulation/returnBook"); ?>';
-        //console.log(member_id);
-
-        var book_ids, newselected, available, split_id, borrowed_books_id;
-
-        $(function () {
-           populateTable();
-        })
-                         
-        
-        function populateTable(){
-
-            $.ajax({
-                url: getRecordsUrl,
-                type: 'post',
-                dataType: 'json', 
-                data: {'table' : 'members', 'set': 'member_id', 'value': member_id}, 
-                success: function(result){
-                    //console.log(result);
-                    
-                    $('#borrowedBooksTable').DataTable().destroy();
-          
-                    $('#borrowedBooksTable').DataTable({
-                        "columns": [
-                        { "width": "5%" },
-                        { "width": "20%" },
-                        { "width": "20%" },
-                        { "width": "12%" },
-                        { "width": "12%" },
-                        { "width": "10%" },
-                        { "width": "11%" },
-                        { "width": "10%" }
-                        ],
-                        "data": result
-                    });   
-                }
-            });
-
-            $('#booksTable').DataTable().destroy();
-
-            $('#booksTable').DataTable( {
-                "columns": [
-                { "width": "15%" },
-                { "width": "15%" },
-                { "width": "25%" },
-                { "width": "25%" },
-                { "width": "20%" }
-                ],
-                "ajax": getBooksUrl
-            });
-        }
-
-
-        $('#add-btn').on('click', function(event) {
-
-            var selected = $('input[type="checkbox"]:checked');
-            //console.log(selected);
-
-            if (selected.length <= 0)
-            {
-                alert('Please select a book first!');
-            }
-            else if (selected.length > 3)
-            {
-                alert('You can only borrow a maximum of 3 books.');
-            }
-            else
-            {
-                book_ids = [];
-                $($('input[type="checkbox"]:checked')).each(function(index, val){
-                     
-                    newselected = val.value.split(",");
-                    available = newselected[1];
-                    split_id = newselected[0];
-
-                    if (available <= 0)
-                    {
-                        alert('bawal');
-                    } else
-                    {
-                        book_ids.push(split_id);
-                        borrowBooks();
-                        $('#modal-add').modal('hide');
-                        populateTable();
-                    }
-                    newselected = null;
-                });
-            }
-
-        });
-
-        function borrowBooks(){
-            $.ajax({
-                url: borrowBooksUrl,
-                type: 'post',
-                dataType: 'json', 
-                data: {
-                    'table' : 'borrowed_books',
-                    'member_id': member_id,
-                    'book_id' : book_ids
-                    }, 
-                    success: function(result){
-                        
-                    }
-            }); 
-        }
-        
-        $("#borrowedBooksTable").on("click", "tr td .return-btn", function(){
-            
-            id = $(this).parents('tr').find('td:first').html();
-            //alert(id);
-            $('#return-confirm').click(function(){
-
-                $.ajax({
-                    url: returnBookUrl,
-                    type: 'post',
-                    dataType: 'json', 
-                    data: {
-                    'id': id,
-                    'table': 'borrowed_books' }, 
-                    success: function(result){
-                    //console.log(result);
-
-                    populateTable();
-                    }
-                }); 
-            })
-        });
 
     </script>
-
 
 </html>
