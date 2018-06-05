@@ -3,24 +3,9 @@
         <nav class="pull-left">
             <ul>
                 <li>
-                    <a href="#">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Company
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Portfolio
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                       Blog
-                    </a>
+                    <a onclick="document.documentElement.scrollTop = 0; document.body.scrollTop = 0;" style="cursor: pointer;">
+                    Back to top
+                    </a>  
                 </li>
             </ul>
         </nav>

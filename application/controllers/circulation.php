@@ -7,6 +7,7 @@ class circulation extends CI_Controller {
 	{
 		$data = array();
 		$data['active'] = 'circulation';
+		$data['title'] = 'Members';
 		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
@@ -35,8 +36,10 @@ class circulation extends CI_Controller {
  		$this->pagination->initialize($config);
 
  		$data["records"] = $this->circulation_model->fetch_members($config["per_page"], $this->uri->segment(3));
+ 		$data["recordSearch"] = $this->global_model->getRecords('members');
  		$data["links"] = $this->pagination->create_links();
 		
+		$this->lms_session->checkSession();
 		$this->load->view('circulation/members', $data);
 	}
 
@@ -45,11 +48,41 @@ class circulation extends CI_Controller {
 	{
 		$data = array();
 		$data['active'] = 'circulation';
+		$data['title'] = 'Borrowed Books';
 		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
 		$data['member_id'] = $this->input->post('borrow_id');
+
+		$this->lms_session->checkSession();
 		$this->load->view('circulation/borrowed_books', $data);
+	}
+
+
+	public function addMember()
+	{
+		$data = $this->input->post();
+		$date_today = date("Y/m/d");
+
+		$memberInfo = array(
+			'member_id' => '' ,
+			'first_name' => $data['first_name'],
+			'last_name' => $data['last_name'],
+			'age' => $data['age'],
+			'house_no' => $data['house_no'],
+			'street' => $data['street'],
+			'barangay' => $data['barangay'],
+			'city' => $data['city'],
+			'province' => $data['province'],
+			'contact_no' => $data['contact_no'],
+			'email' => $data['email'],
+			'date_joined' => $date_today
+		);	
+
+		$this->global_model->insert('members', $memberInfo);
+
+		redirect('/circulation/index') ;
+			
 	}
 
 
@@ -61,7 +94,7 @@ class circulation extends CI_Controller {
 		//print_r($book_ids);exit;
 
 		$date_today = date("Y/m/d");
-		$due_date = date("Y/m/d", strtotime("+7 days"));
+		$due_date = date("Y/m/d", strtotime("+6 days"));
 
 			foreach ($book_ids as $book_id) {
 			
@@ -114,7 +147,7 @@ class circulation extends CI_Controller {
         	}
 
 			$action = "
-                    <center><button data-toggle='modal' id='return-btn' data-target='#modal-return' class='btn btn-simple return-btn btn-fill btn-info'>Return</button></form></center>                
+                    <center><button data-toggle='modal' id='return-btn' data-target='#modal-return' class='btn btn-simple return-btn btn-fill btn-info'>Return</button></center>                
                   ";
 
 			
@@ -195,6 +228,41 @@ class circulation extends CI_Controller {
 					'date_returned' => $date_today);
 
 		$result = $this->circulation_model->update($table, $data);
+		echo json_encode($result);
+	}
+
+	public function ajaxGetRow()
+	{
+		$data = $this->input->post();
+
+		$result = $this->global_model->getRow($data['table'], $data['set'], $data['value']);
+		echo json_encode($result);
+	}
+
+
+	public function ajaxUpdate()
+	{
+		$table = $this->input->post('table');	
+		$member_id = $this->input->post('set');
+		
+
+		$where = array('member_id' => $member_id);	
+		$data = $this->input->post();
+		unset($data['table']);
+		unset($data['set']);
+
+		$result = $this->global_model->update($table, $data, $where);
+		echo json_encode($result);
+	}
+
+	public function ajaxDeleteRow()
+	{
+		$tables = $this->input->post('tables');	
+		$data = $this->input->post();
+
+		unset($data['tables']);
+
+		$result = $this->circulation_model->deleteRow($tables, $data);
 		echo json_encode($result);
 	}
 

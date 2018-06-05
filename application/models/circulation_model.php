@@ -23,6 +23,13 @@ class circulation_model extends CI_Model{
 		return $query;
 	}
 
+	public function deleteRow($tables, $where)
+	{	
+		$this->db->where($where);
+		$query = $this->db->delete($tables);
+		return $query;
+	}
+
 
 }
 ?>

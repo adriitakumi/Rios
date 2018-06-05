@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">
+                    <a href="<?php echo base_url('Login/logout'); ?>">
                         <p><i class="fa fa-cog" style="margin-right: 10px;"></i>Log out</p>
                     </a>
                 </li>

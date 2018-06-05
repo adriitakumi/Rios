@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="orange" data-image="<?php echo base_url(); ?>assets/img/sidebar-5.jpg">
+<div class="sidebar" data-color="purple" data-image="<?php echo base_url(); ?>assets/img/sidebar-5.jpg">
 
     <!--
 
@@ -9,7 +9,7 @@
     <div class="sidebar-wrapper">
         <div class="logo">
             <a href="http://www.creative-tim.com" class="simple-text">
-                Rio's Logo
+                <img src="<?php echo base_url(); ?>assets/img/white.png" style="width: 40%; margin: -25px 0" />
             </a>
         </div>
 
@@ -30,12 +30,6 @@
                 <a href="<?php echo site_url('circulation/') ?>">
                     <i class="pe-7s-id"></i>
                     <p>Circulation</p>
-                </a>
-            </li>
-    		<li class="active-pro">
-                <a href="#">
-                    <i class="fa fa-cogs"></i>
-                    <p>About the Developer</p>
                 </a>
             </li>
         </ul>
