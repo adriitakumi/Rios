@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2018 at 06:37 AM
+-- Generation Time: Jun 05, 2018 at 12:49 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -43,10 +43,15 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`book_id`, `book_title`, `author`, `genre`, `library_section`, `copies`, `date_added`) VALUES
-(1, 'The Fault in Our Starsu', 'John Greenee', '1', 'Periodical Section', 32, '2018-05-31'),
-(3, '50 shades of grey', 'el james', '1,2', 'Fiction', 4, '2018-05-31'),
-(4, 'Cheap Thrills', 'Sia', '7,9,15', 'Children\'s Section', 4, '2018-06-01'),
-(5, 'My R', 'Rachie', '2,11,12', 'Children\'s Section', 5, '2018-06-01');
+(1, 'The Handmaid\'s Tale', 'Margaret Atwood', '2,20', 'Fiction', 3, '2018-06-05'),
+(2, 'It', 'Stephen King', '4', 'Fiction', 2, '2018-06-05'),
+(3, 'Beneath a Scarlet Sky ', 'Mark Sullivan', '13,15', 'Fiction', 4, '2018-06-05'),
+(4, 'Origin', 'Dan Brown', '2,11,15', 'Fiction', 3, '2018-06-05'),
+(5, 'The Fault in Our Stars', 'John Greene', '1', 'Fiction', 5, '2018-06-05'),
+(6, 'New York Times', 'New York Times', '14', 'Periodical Section', 2, '2018-06-05'),
+(7, 'Harry Potter and the Philosopher\'s Stone', 'J.K. Rowling', '2,7', 'Fiction', 2, '2018-06-05'),
+(8, 'Harry Potter and the Chamber of Secrets', 'J.K. Rowling', '2,7', 'Fiction', 2, '2018-06-05'),
+(9, 'Harry Potter and the Prisoner of Azkaban', 'J.K. Rowling', '2,7', 'Fiction', 2, '2018-06-05');
 
 -- --------------------------------------------------------
 
@@ -63,19 +68,6 @@ CREATE TABLE `borrowed_books` (
   `due_date` date NOT NULL,
   `date_returned` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `borrowed_books`
---
-
-INSERT INTO `borrowed_books` (`id`, `book_id`, `member_id`, `status`, `date_borrowed`, `due_date`, `date_returned`) VALUES
-(1, 1, 2, 'Returned', '2018-05-31', '2018-06-07', 'N/A'),
-(7, 3, 2, 'Returned', '2018-05-31', '2018-06-07', '2018/06/01'),
-(22, 1, 2, 'Out', '2018-05-31', '2018-06-07', 'N/A'),
-(26, 3, 2, 'Returned', '2018-05-31', '2018-06-07', '2018/06/01'),
-(27, 3, 2, 'Out', '2018-05-31', '2018-06-07', 'N/A'),
-(28, 3, 2, 'Out', '2018-05-31', '2018-06-07', 'N/A'),
-(29, 1, 2, 'Out', '2018-05-31', '2018-06-07', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -125,7 +117,11 @@ CREATE TABLE `members` (
   `first_name` varchar(40) NOT NULL,
   `last_name` varchar(30) NOT NULL,
   `age` int(2) NOT NULL,
-  `address` varchar(100) NOT NULL,
+  `house_no` varchar(30) NOT NULL DEFAULT '',
+  `street` varchar(30) NOT NULL,
+  `barangay` varchar(30) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `province` varchar(30) NOT NULL,
   `contact_no` varchar(20) NOT NULL,
   `email` varchar(40) NOT NULL,
   `date_joined` date DEFAULT NULL
@@ -135,13 +131,10 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`member_id`, `first_name`, `last_name`, `age`, `address`, `contact_no`, `email`, `date_joined`) VALUES
-(1, 'Hakeem', 'Polistico', 23, 'None, naglayas eh LMFAO', '09558874822', 'hjpolistico@gmail.com', '2018-05-31'),
-(2, 'Aiella', 'Escaro', 18, 'Imus, Cavite', '093242522542', 'daniel_polistico@yahoo.com', '2018-05-31'),
-(3, 'hfdbhg', 'gfghfhg', 88, 'jfdsfdsfs', '435353', 'asgfhsd@gmail.com', '2018-05-31'),
-(4, 'sdjfsjfhsg', 'jhghfksjf', 73, 'sdfsk', '38647538', 'hdfjsd@gmail.com', '2018-05-31'),
-(5, 'fsdjfsj', 'jfhdjg', 37, 'sjkgjsf', '8458734', 'jdjk2f@gmail.com', '2018-05-31'),
-(6, 'kjwrh', 'jdgnkjg', 38, 'dkjjgjkf', '429842', 'sjdk@gmail.com', '2018-05-31');
+INSERT INTO `members` (`member_id`, `first_name`, `last_name`, `age`, `house_no`, `street`, `barangay`, `city`, `province`, `contact_no`, `email`, `date_joined`) VALUES
+(1, 'Hakeem', 'Polistico', 23, '', '', '', '', '', '09558874822', 'hjpolistico@gmail.com', '2018-06-05'),
+(2, 'Aiella', 'Escaro', 18, '', '', '', '', '', '09222222222', 'aiella.escaro@gmail.com', '2018-06-05'),
+(3, 'Aiella', 'Francesca', 19, '#211', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '0933333333', 'dhajkda@gmail.com', '2018-06-05');
 
 -- --------------------------------------------------------
 
@@ -210,13 +203,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `book_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `borrowed_books`
 --
 ALTER TABLE `borrowed_books`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `genres`
@@ -228,7 +221,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
