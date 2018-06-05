@@ -39,6 +39,7 @@ class circulation extends CI_Controller {
  		$data["recordSearch"] = $this->global_model->getRecords('members');
  		$data["links"] = $this->pagination->create_links();
 		
+		$this->lms_session->checkSession();
 		$this->load->view('circulation/members', $data);
 	}
 
@@ -52,6 +53,8 @@ class circulation extends CI_Controller {
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
 		$data['member_id'] = $this->input->post('borrow_id');
+
+		$this->lms_session->checkSession();
 		$this->load->view('circulation/borrowed_books', $data);
 	}
 
@@ -66,7 +69,11 @@ class circulation extends CI_Controller {
 			'first_name' => $data['first_name'],
 			'last_name' => $data['last_name'],
 			'age' => $data['age'],
-			'address' => $data['address'],
+			'house_no' => $data['house_no'],
+			'street' => $data['street'],
+			'barangay' => $data['barangay'],
+			'city' => $data['city'],
+			'province' => $data['province'],
 			'contact_no' => $data['contact_no'],
 			'email' => $data['email'],
 			'date_joined' => $date_today

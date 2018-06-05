@@ -1,6 +1,6 @@
 var get_member_id, member_id, i;
-var first_name, last_name, age, contact_no, email, address;
-var new_first_name, new_last_name, new_age, new_contact_no, new_email, new_address;
+var first_name, last_name, age, contact_no, email, house_no, street, barangay, city, province;
+var new_first_name, new_last_name, new_age, new_contact_no, new_email, new_house_no, new_street, new_barangay, new_city, new_province;
 
 $(".member").on("click", ".view-btn", function(){
 
@@ -18,19 +18,28 @@ $.ajax({
     data: {'table' : 'members', 'set': 'member_id', 'value': member_id}, 
     success: function(result){
       //employee_id = result.employee_id;
+      alert(result.house_no);
         $( "#view-firstname" ).val(result.first_name);
         $( "#view-lastname" ).val(result.last_name);
         $( "#view-age" ).val(result.age);
         $( "#view-contact" ).val(result.contact_no);
         $( "#view-email" ).val(result.email);
-        $( "#view-address" ).val(result.address);
+        $( "#view-houseno" ).val(result.house_no);
+        $( "#view-street" ).val(result.street);
+        $( "#view-barangay" ).val(result.barangay);
+        $( "#view-city" ).val(result.city);
+        $( "#view-province" ).val(result.province);
       
         first_name = result.first_name;
         last_name = result.last_name;
         age = result.age;
         contact_no = result.contact_no;
         email = result.email;
-        address = result.address;
+        house_no = result.house_no;
+        street = result.street;
+        barangay = result.barangay;
+        city = result.city;
+        province = result.province;
     }
   });
 });
@@ -42,7 +51,11 @@ function show(){
     $( "#view-age" ).prop( "disabled", false );
     $( "#view-contact" ).prop( "disabled", false );
     $( "#view-email" ).prop( "disabled", false );
-    $( "#view-address" ).prop( "disabled", false );
+    $( "#view-houseno" ).prop( "disabled", false );
+    $( "#view-street" ).prop( "disabled", false );
+    $( "#view-barangay" ).prop( "disabled", false );
+    $( "#view-city" ).prop( "disabled", false );
+    $( "#view-province" ).prop( "disabled", false );
     $( "#view-edit-title" ).html('Edit');
     $( "#update-btn" ).show();
     $( "#cancel-btn" ).show();
@@ -56,7 +69,12 @@ function hide(){
     $( "#view-age" ).prop( "disabled", true );
     $( "#view-contact" ).prop( "disabled", true );
     $( "#view-email" ).prop( "disabled", true );
-    $( "#view-address" ).prop( "disabled", true );
+    $( "#view-houseno" ).prop( "disabled", true );
+    $( "#view-street" ).prop( "disabled", true );
+    $( "#view-barangay" ).prop( "disabled", true );
+    $( "#view-city" ).prop( "disabled", true );
+    $( "#view-province" ).prop( "disabled", true );
+    $( "#view-edit-title" ).html('View');
     $( "#update-btn" ).hide();
     $( "#cancel-btn" ).hide();
     $( "#view-edit" ).show();
@@ -83,7 +101,11 @@ function updateRow(){
         'age': new_age, 
         'contact_no': new_contact_no,  
         'email': new_email, 
-        'address': new_address,
+        'house_no': new_house_no,
+        'street': new_street,
+        'barangay': new_barangay,
+        'city': new_city,
+        'province': new_province,
         'set': member_id }, 
         success: function(result){
             location.reload();
@@ -99,7 +121,11 @@ $('#update-btn').click(function(){
     new_age = $('#view-age').val();
     new_contact_no = $('#view-contact').val();
     new_email = $('#view-email').val();
-    new_address = $( "#view-address" ).val();
+    new_house_no = $( "#view-houseno" ).val();
+    new_street = $( "#view-street" ).val();
+    new_barangay = $( "#view-barangay" ).val();
+    new_city = $( "#view-city" ).val();
+    new_province = $( "#view-province" ).val();
     updateRow();  
 })
 

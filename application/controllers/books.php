@@ -12,6 +12,8 @@ class books extends CI_Controller {
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
 		$data['genres'] = $this->global_model->getRecords('genres');
+
+		$this->lms_session->checkSession();
 		$this->load->view('books/books', $data);
 	}
 
@@ -24,6 +26,8 @@ class books extends CI_Controller {
 		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
 		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
+
+		$this->lms_session->checkSession();
 		$this->load->view('books/books', $data);
 	}
 
@@ -114,7 +118,7 @@ class books extends CI_Controller {
 
 
 			$action = "
-                    <center><button data-toggle='modal' id='view-btn' data-target='#modal-edit' class='btn btn-default btn-xs view-btn'><span class='fa fa-fw fa-search text-info'></span></button>                  
+                    <center><button data-toggle='modal' id='view-btn' data-target='#modal-edit' class='btn btn-default btn-xs view-btn'><span class='fa fa-fw fa-pencil text-info'></span></button>                  
                     <button data-toggle='modal' id='delete-btn' data-target='#modal-delete' class='btn btn-default btn-xs delete-btn'><span class='fa fa-fw fa-remove text-danger'></span></button></center>                
                   ";
 

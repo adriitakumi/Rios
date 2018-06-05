@@ -224,9 +224,38 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <label class="control-label">Address</label>
-                        <textarea class="form-control" name="address" id="address-input" value="<?php echo set_value('address'); ?>" required></textarea>
+                    <div class="col-md-6">
+                        <div class="form-group is-empty">
+                            <label class="control-label">House No.</label>
+                            <input id="houseno-input" type="text" name="house_no" value="<?php echo set_value('house_no'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Street</label>
+                            <input id="street-input" type="text" name="street" value="<?php echo set_value('street'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Barangay</label>
+                            <input id="barangay-input" type="text" name="barangay" value="<?php echo set_value('barangay'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">City</label>
+                            <input id="city-input" type="text" name="city" value="<?php echo set_value('city'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Province</label>
+                            <input id="province-input" type="text" name="province" value="<?php echo set_value('province'); ?>" class="form-control" required>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,9 +320,38 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <label class="control-label">Address</label>
-                        <input type="text" class="form-control" name="address" id="view-address" value="<?php echo set_value('address'); ?>" required></input>
+                    <div class="col-md-6">
+                        <div class="form-group is-empty">
+                            <label class="control-label">House No.</label>
+                            <input id="view-houseno" type="text" name="house_no" value="<?php echo set_value('house_no'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Street</label>
+                            <input id="view-street" type="text" name="street" value="<?php echo set_value('street'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Barangay</label>
+                            <input id="view-barangay" type="text" name="barangay" value="<?php echo set_value('barangay'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">City</label>
+                            <input id="view-city" type="text" name="city" value="<?php echo set_value('city'); ?>" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Province</label>
+                            <input id="view-province" type="text" name="province" value="<?php echo set_value('province'); ?>" class="form-control" required>
+                        </div>
                     </div>
                 </div>
             </div>

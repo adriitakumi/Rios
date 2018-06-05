@@ -23,6 +23,7 @@ class dashboard extends CI_Controller {
 		$data['member_num'] = $this->global_model->count('members');
 		$data['due_today_num'] = $this->global_model->count('borrowed_books', $where2);
 
+		$this->lms_session->checkSession();
 		$this->load->view('dashboard/dashboard', $data);
 	}
 
