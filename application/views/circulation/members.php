@@ -53,7 +53,8 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-md-4 col-xs-4">
-                        <button class="btn btn-info btn-fill pull-right" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus" style="margin: 0 10px 0 -5px;"></i>Add Member</button>
+                        <button class="btn btn-info btn-fill pull-right" data-toggle="modal" data-target="#modal-add" style="margin-left: 10px;"><i class="fa fa-plus" style="margin: 0 10px 0 -5px;"></i>Add Member</button>
+                        <a href="<?php echo base_url('circulation/all_borrowed'); ?>" class="btn btn-warning btn-fill pull-right"><i class="fa fa-bookmark" style="margin: 0 10px 0 -5px;"></i>See All Borrowed</a>
                     </div>
                 </div>
                 <!-- /.row -->

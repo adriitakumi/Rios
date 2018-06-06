@@ -1,26 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 4.8.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jun 05, 2018 at 12:49 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `library`
---
+CREATE DATABASE IF NOT EXISTS `library` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `library`;
 
 -- --------------------------------------------------------
 
@@ -63,11 +42,24 @@ CREATE TABLE `borrowed_books` (
   `id` int(10) NOT NULL,
   `book_id` int(10) NOT NULL,
   `member_id` int(10) NOT NULL,
-  `status` varchar(30) NOT NULL,
   `date_borrowed` date NOT NULL,
-  `due_date` date NOT NULL,
-  `date_returned` varchar(15) NOT NULL
+  `due_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `borrowed_books`
+--
+
+INSERT INTO `borrowed_books` (`id`, `book_id`, `member_id`, `date_borrowed`, `due_date`) VALUES
+(1, 1, 1, '2018-06-06', '2018-06-12'),
+(2, 2, 1, '2018-06-06', '2018-06-12'),
+(3, 3, 1, '2018-06-06', '2018-06-12'),
+(4, 4, 2, '2018-06-06', '2018-06-12'),
+(5, 5, 2, '2018-06-06', '2018-06-12'),
+(6, 6, 3, '2018-06-06', '2018-06-12'),
+(7, 7, 4, '2018-06-06', '2018-06-12'),
+(8, 8, 4, '2018-06-06', '2018-06-12'),
+(9, 9, 4, '2018-06-06', '2018-06-12');
 
 -- --------------------------------------------------------
 
@@ -132,9 +124,28 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`member_id`, `first_name`, `last_name`, `age`, `house_no`, `street`, `barangay`, `city`, `province`, `contact_no`, `email`, `date_joined`) VALUES
-(1, 'Hakeem', 'Polistico', 23, '', '', '', '', '', '09558874822', 'hjpolistico@gmail.com', '2018-06-05'),
-(2, 'Aiella', 'Escaro', 18, '', '', '', '', '', '09222222222', 'aiella.escaro@gmail.com', '2018-06-05'),
-(3, 'Aiella', 'Francesca', 19, '#211', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '0933333333', 'dhajkda@gmail.com', '2018-06-05');
+(1, 'Hakeem', 'Polistico', 23, '#210', 'Talaba st.', 'Talaba', 'Bacoor', 'Cavi', '09558874822', 'hjpolistico@gmail.com', '2018-06-05'),
+(2, 'Aiella', 'Escaro', 18, '#211', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '09111111111', 'aiella.escaro@gmail.com', '2018-06-05'),
+(3, 'Gemma', 'Escaro', 46, '#212', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '09222222222', 'gemma.escaro@gmail.com', '2018-06-05'),
+(4, 'Wilson', 'Escaro', 50, '#214', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '09333333333', 'buapeq@gmail.com', '2018-06-05'),
+(5, 'Jasver', 'Salva', 19, '#215', 'Dasma st.', 'Dasma', 'Dasma', 'Cavite', '09555555555', 'jasver.salva@gmail.com', '2018-06-05'),
+(6, 'Journacel', 'Ferrer', 20, '#216', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '09666666666', 'journacel.ferrer@gmail.com', '2018-06-05'),
+(7, 'Alexandra', 'Polistico', 26, '#217', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '09777777777', 'alex.polistico@gmail.com', '2018-06-05'),
+(8, 'Peetee', 'Barnum', 56, '#218', 'Barietto st.', 'Maharlika', 'Imus', 'Cavite', '09888888888', 'peetee.barnum@gmail.com', '2018-06-05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `returned_books`
+--
+
+CREATE TABLE `returned_books` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `date_borrowed` date NOT NULL,
+  `date_returned` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -190,6 +201,12 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`member_id`);
 
 --
+-- Indexes for table `returned_books`
+--
+ALTER TABLE `returned_books`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -209,7 +226,7 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `borrowed_books`
 --
 ALTER TABLE `borrowed_books`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `genres`
@@ -221,7 +238,13 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `returned_books`
+--
+ALTER TABLE `returned_books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -229,7 +252,3 @@ ALTER TABLE `members`
 ALTER TABLE `users`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
