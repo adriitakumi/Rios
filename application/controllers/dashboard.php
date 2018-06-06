@@ -95,12 +95,22 @@ class dashboard extends CI_Controller {
 
 		$date_today = date("Y/m/d");
 
-		$data = array(
-					'set' => $id,
-					'status' => 'Returned' ,
+		$borrowed_book = $this->global_model->getRow($table, 'id', $id);
+		$book_id = $borrowed_book->book_id;
+		$member_id = $borrowed_book->member_id;
+		$date_borrowed = $borrowed_book->date_borrowed;
+
+		$returnedBookInfo = array(
+					'id' => '',
+					'book_id' => $book_id,
+					'member_id' => $member_id,
+					'date_borrowed' => $date_borrowed,
 					'date_returned' => $date_today);
 
-		$result = $this->dashboard_model->update($table, $data);
+		$this->global_model->insert('returned_books', $returnedBookInfo);
+		$where = array('id' => $id );
+
+		$result = $this->global_model->deleteRow($table, $where);
 		echo json_encode($result);
 	}
 

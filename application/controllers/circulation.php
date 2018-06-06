@@ -54,6 +54,10 @@ class circulation extends CI_Controller {
 		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
 		$data['member_id'] = $this->input->post('borrow_id');
 
+		$member = $this->global_model->getRow('members', 'member_id', $data['member_id']);
+
+		$data['member_name'] = $member->first_name.' '.$member->last_name;
+
 		$this->lms_session->checkSession();
 		$this->load->view('circulation/borrowed_books', $data);
 	}
@@ -267,6 +271,79 @@ class circulation extends CI_Controller {
 
 		$result = $this->circulation_model->deleteRow($tables, $data);
 		echo json_encode($result);
+	}
+
+	public function all_borrowed()
+	{
+		$data = array();
+		$data['active'] = 'circulation';
+		$data['title'] = 'All Borrowed Books';
+		$data['sidebar'] = $this->load->view('templates/sidebar', $data, TRUE);
+		$data['topnav'] = $this->load->view('templates/topnav', $data, TRUE);
+		$data['footer'] = $this->load->view('templates/footer', $data, TRUE);
+
+		// $memberRecords = $this->global_model->getRecords('members');
+
+		// $members = [];
+		// foreach ($memberRecords as $member) 
+		// {
+		// 	$first_name = $member->first_name;
+		// 	$last_name = $member->last_name;
+
+		// 	$full_name = $first_name.' '.$last_name;
+
+		// 	$members[] = $full_name;
+		// }
+
+		$data['members'] = $this->global_model->getRecords('members');
+	
+		$this->lms_session->checkSession();
+		$this->load->view('circulation/all_borrowed_books', $data);
+	}
+
+	public function all_borrowed_populate()
+	{
+		$table = $this->input->post('table');
+
+		$borrowedBooksInfo = $this->global_model->getRecords($table);
+
+		$data = [];
+		foreach ($borrowedBooksInfo as $books) 
+		{
+			$id = $books->id;
+			$member_id = $books->member_id;
+
+			$memberInfo = $this->global_model->getRow('members','member_id', $member_id);
+			$borrowed_by = $memberInfo->first_name.' '.$memberInfo->last_name;
+
+			$book_id = $books->book_id;
+			$bookInfo = $this->global_model->getRow('books','book_id', $book_id);
+
+			$title = $bookInfo->book_title;
+			$author = $bookInfo->author;
+
+			$date_borrowed = $books->date_borrowed;
+			$due_date = $books->due_date;
+
+			$action = "
+                    <center><button data-toggle='modal' id='return-btn' data-target='#modal-return' class='btn btn-simple return-btn btn-fill btn-info'>Return</button></center>                
+                  ";
+
+			
+			$arr = array(
+				$id,
+				$borrowed_by,
+		        $title,
+		        $author,
+		        $date_borrowed,
+		        $due_date,
+		        $action
+		    );
+
+            $data[] = $arr;
+		}
+
+		echo json_encode($data);		
 	}
 
 }

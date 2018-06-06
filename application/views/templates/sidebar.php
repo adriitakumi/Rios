@@ -8,7 +8,7 @@
     -->
     <div class="sidebar-wrapper">
         <div class="logo">
-            <a href="http://www.creative-tim.com" class="simple-text">
+            <a href="<?php echo site_url('dashboard/') ?>" class="simple-text">
                 <img src="<?php echo base_url(); ?>assets/img/white.png" style="width: 40%; margin: -25px 0" />
             </a>
         </div>

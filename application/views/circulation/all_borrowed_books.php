@@ -57,13 +57,14 @@
                 <a href="<?php echo base_url('circulation/'); ?>" class="btn btn-simple btn-fill btn-warning" style="margin-bottom: 20px;"><i class="fa fa-angle-left" style="margin-left: -12px;"></i>Back</a>
                 <div class="panel-heading">
                     <h3>Borowed Books</h3>
-                    <p>List of <?php echo $member_name; ?>'s borrowed books information</p>
+                    <p>List of borrowed books information</p>
                     <p id="add-link" class="category pull-right" style="margin: -60px 20px 0 20px;"><i class="fa fa-plus-circle" data-toggle="modal" data-target="#modal-add" style="font-size: 40px; cursor: pointer;"></i></p>
                 </div>
                 <div class="container-fluid panel" style="padding: 10px;">
                     <table class="table table-bordered table-hover" id="borrowedBooksTable">
                         <thead>
                             <th>Id</th>
+                            <th>Borrowed By</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Date Borrowed</th>
@@ -99,6 +100,20 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="form-group is-empty">
+                        <label class="control-label">Borrowed by</label>
+                        <select class="form-control" id="member_id" name="borrowed_by" style="width: 100%;" value="<?php echo set_select('borrowed_by'); ?>" required>
+                            <option value="" selected disabled>Please select</option>
+                            <?php foreach ($members as $member): ?>
+                                <option value="<?php echo $member->member_id; ?>" <?php echo  set_select('borrowed_by', $member->member_id); ?> ><?php echo $member->first_name.' '.$member->last_name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Choose Book</label>
                     <table id="booksTable" class="table table-bordered table-striped">
                         <thead>
                           <tr>
@@ -167,10 +182,9 @@
 	<script src="<?php echo base_url(); ?>assets/js/demo.js"></script>
 
     <!-- Page Script -->
-    <script src="<?php echo base_url(); ?>assets/js/circulation/borrowed_books.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/circulation/all_borrowed_books.js"></script>
     <script>
-        var member_id = '<?php echo $member_id; ?>'
-        var getRecordsUrl = '<?php echo base_url("circulation/populateTable"); ?>';
+        var getRecordsUrl = '<?php echo base_url("circulation/all_borrowed_populate"); ?>';
         var getBooksUrl = '<?php echo base_url("circulation/getBooksTable"); ?>';
         var borrowBooksUrl = '<?php echo base_url("circulation/add"); ?>';
         var returnBookUrl = '<?php echo base_url("circulation/returnBook"); ?>';

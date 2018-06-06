@@ -172,7 +172,6 @@
                                         <th>Borrowed By</th>
                                         <th>Date Borrowed</th>
                                         <th>Due Date</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
