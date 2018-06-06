@@ -68,8 +68,6 @@
                             <th>Author</th>
                             <th>Date Borrowed</th>
                             <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Date Returned</th>
                             <th>Action</th>
                         </thead>
                         <tbody>

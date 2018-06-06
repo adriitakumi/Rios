@@ -11,13 +11,12 @@ function populateTable(){
       
     $('#dueThisWeekTable').DataTable({
         "columns": [
-        { "width": "5%" },
+        { "width": "10%" },
         { "width": "20%" },
         { "width": "15%" },
         { "width": "20%" },
         { "width": "10%" },
         { "width": "10%" },
-        { "width": "5%" },
         { "width": "15%" }
         ],
         "ajax": getRecordsUrl
