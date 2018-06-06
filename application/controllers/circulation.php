@@ -102,14 +102,14 @@ class circulation extends CI_Controller {
 					'id' => '' ,
 					'book_id' => $book_id ,
 					'member_id' => $data['member_id'] ,
-					'status' => 'Out',
 					'date_borrowed' => $date_today,
-					'due_date' => $due_date,
-					'date_returned' => 'N/A'
+					'due_date' => $due_date
 				);	
 
-				$this->global_model->insert('borrowed_books', $borrowedBookInfo);
+				$result = $this->global_model->insert('borrowed_books', $borrowedBookInfo);
 			}
+
+		echo json_encode($result);
 			
 	}
 
@@ -135,16 +135,6 @@ class circulation extends CI_Controller {
 
 			$date_borrowed = $books->date_borrowed;
 			$due_date = $books->due_date;
-			$date_returned = $books->date_returned;
-
-			
-			$status=null;
-        	if($books->status == 'Out'){
-        		$status = '<center><span class="badge" style="background-color: red;">'.$books->status.'</span></center>';
-        	}
-        	else{
-        		$status = '<center><span class="badge"  style="background-color: green;">'.$books->status.'</span></center>';	
-        	}
 
 			$action = "
                     <center><button data-toggle='modal' id='return-btn' data-target='#modal-return' class='btn btn-simple return-btn btn-fill btn-info'>Return</button></center>                
@@ -157,8 +147,6 @@ class circulation extends CI_Controller {
 		        $author,
 		        $date_borrowed,
 		        $due_date,
-		        $status,
-		        $date_returned,
 		        $action
 		    );
 
@@ -179,9 +167,7 @@ class circulation extends CI_Controller {
 			$book_id = $books->book_id;
 			$title = $books->book_title;
 			$author = $books->author;
-			$genres = $books->genre;
 			$copies = $books->copies;
-			$date_added = $books->date_added;
 			
 			$where = array('book_id' => $book_id);
 			$takenCopies = $this->global_model->count('borrowed_books', $where);
@@ -199,19 +185,26 @@ class circulation extends CI_Controller {
 
 			$checkbox = '<input type="checkbox" name="check[]" value="'.$book_id.','.$available.'">';
 
-			
-			$arr = array(
-				$checkbox,
-		        $book_id,
-		        $title,
-		        $author,
-		        $availableCopies
-		    );
+			if ($available <= 0)
+			{
+				continue;
+			}
+			else
+			{
+				$arr = array(
+					$checkbox,
+			        $book_id,
+			        $title,
+			        $author,
+			        $availableCopies
+			    );
 
-            $data['data'][] = $arr;
+	            $data['data'][] = $arr;
+			}
+			
 		}
 
-		echo json_encode($data);exit;
+		echo json_encode($data);
 	}
 
 
@@ -222,12 +215,22 @@ class circulation extends CI_Controller {
 
 		$date_today = date("Y/m/d");
 
-		$data = array(
-					'set' => $id,
-					'status' => 'Returned' ,
+		$borrowed_book = $this->global_model->getRow($table, 'id', $id);
+		$book_id = $borrowed_book->book_id;
+		$member_id = $borrowed_book->member_id;
+		$date_borrowed = $borrowed_book->date_borrowed;
+
+		$returnedBookInfo = array(
+					'id' => '',
+					'book_id' => $book_id,
+					'member_id' => $member_id,
+					'date_borrowed' => $date_borrowed,
 					'date_returned' => $date_today);
 
-		$result = $this->circulation_model->update($table, $data);
+		$this->global_model->insert('returned_books', $returnedBookInfo);
+		$where = array('id' => $id );
+
+		$result = $this->global_model->deleteRow($table, $where);
 		echo json_encode($result);
 	}
 

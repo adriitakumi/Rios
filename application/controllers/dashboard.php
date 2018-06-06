@@ -16,10 +16,9 @@ class dashboard extends CI_Controller {
 		
 		$data['date_today'] = date("Y/m/d");
 		$data['date_nextweek'] = date("Y/m/d", strtotime("+6 days"));
-		$where1 = array('status' => 'Out');
 		$where2 = array('due_date' => $data['date_today']);
 
-		$data['out_num'] = $this->global_model->count('borrowed_books', $where1);
+		$data['out_num'] = $this->global_model->count('borrowed_books');
 		$data['member_num'] = $this->global_model->count('members');
 		$data['due_today_num'] = $this->global_model->count('borrowed_books', $where2);
 
@@ -51,41 +50,35 @@ class dashboard extends CI_Controller {
 				$date_borrowed = $borrowedBooks->date_borrowed;
 				$due_date = $borrowedBooks->due_date;
 
-				$status=null;
-	        	if($borrowedBooks->status == 'Out'){
-	        		$status = '<center><span class="badge" style="background-color: red;">'.$borrowedBooks->status.'</span></center>';
+        		$bookInfo = $this->global_model->getRow('books', 'book_id', $book_id);
 
-	        		$bookInfo = $this->global_model->getRow('books', 'book_id', $book_id);
+				$title = $bookInfo->book_title;
+				$author = $bookInfo->author;
 
-					$title = $bookInfo->book_title;
-					$author = $bookInfo->author;
+				$memberInfo = $this->global_model->getRow('members', 'member_id', $member_id);
 
-					$memberInfo = $this->global_model->getRow('members', 'member_id', $member_id);
+				$first_name = $memberInfo->first_name;
+				$last_name = $memberInfo->last_name;
 
-					$first_name = $memberInfo->first_name;
-					$last_name = $memberInfo->last_name;
-
-					$borrowedBy = $last_name.', '.$first_name;
+				$borrowedBy = $last_name.', '.$first_name;
 
 
-					$action = "
-		                    <center><button data-toggle='modal' id='return-btn' data-target='#modal-return' class='btn btn-simple return-btn btn-fill btn-info'>Return</button></center>                
-		                  ";
+				$action = "
+	                    <center><button data-toggle='modal' id='return-btn' data-target='#modal-return' class='btn btn-simple return-btn btn-fill btn-info'>Return</button></center>                
+	                  ";
 
-					
-					$arr = array(
-						$id,
-				        $title,
-				        $author,
-				        $borrowedBy,
-				        $date_borrowed,
-				        $due_date,
-				        $status,
-				        $action
-				    );
+				
+				$arr = array(
+					$id,
+			        $title,
+			        $author,
+			        $borrowedBy,
+			        $date_borrowed,
+			        $due_date,
+			        $action
+			    );
 
-		            $data['data'][] = $arr;
-	        	}
+	            $data['data'][] = $arr;
 
 				
 			}

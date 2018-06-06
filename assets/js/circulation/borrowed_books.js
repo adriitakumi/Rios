@@ -19,14 +19,12 @@ function populateTable(){
   
             $('#borrowedBooksTable').DataTable({
                 "columns": [
-                { "width": "5%" },
+                { "width": "15%" },
                 { "width": "20%" },
                 { "width": "20%" },
-                { "width": "12%" },
-                { "width": "12%" },
-                { "width": "10%" },
-                { "width": "11%" },
-                { "width": "10%" }
+                { "width": "15%" },
+                { "width": "15%" },
+                { "width": "15%" }
                 ],
                 "data": result
             });   
@@ -72,16 +70,16 @@ $('#add-btn').on('click', function(event) {
 
             if (available <= 0)
             {
-                alert('bawal');
+                alert('No copies to borrow.');
             } else
             {
                 book_ids.push(split_id);
-                borrowBooks();
-                $('#modal-add').modal('hide');
-                populateTable();
+                //populateTable();
             }
-            newselected = null;
         });
+        borrowBooks();
+        $('#modal-add').modal('hide');
+        newselected = null;
     }
 
 });
@@ -97,6 +95,8 @@ function borrowBooks(){
             'book_id' : book_ids
             }, 
             success: function(result){
+
+                location.reload();
 
                 $.notify({
                     icon: 'fa fa-check',

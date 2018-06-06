@@ -17,8 +17,7 @@ $.ajax({
     dataType: 'json', 
     data: {'table' : 'members', 'set': 'member_id', 'value': member_id}, 
     success: function(result){
-      //employee_id = result.employee_id;
-      alert(result.house_no);
+      // employee_id = result.employee_id;
         $( "#view-firstname" ).val(result.first_name);
         $( "#view-lastname" ).val(result.last_name);
         $( "#view-age" ).val(result.age);
